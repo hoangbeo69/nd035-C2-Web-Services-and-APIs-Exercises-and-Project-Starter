@@ -1,26 +1,39 @@
 package com.udacity.pricing;
 
-import com.udacity.pricing.service.PriceException;
-import com.udacity.pricing.service.PricingService;
-import org.junit.Assert;
+import com.udacity.pricing.domain.price.Price;
+import com.udacity.pricing.domain.price.PriceRepository;
+import java.math.BigDecimal;
+import java.util.NoSuchElementException;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 public class PricingServiceApplicationTests {
 
-	private static PricingService pricingService;
-	@Test
-	public void contextLoads() throws PriceException {
-		Assert.assertNotNull(PricingService.getPrice(1L));
-		Assert.assertNotNull(PricingService.getPrice(3L));
-		Assert.assertNotNull(PricingService.getPrice(4L));
-		Assert.assertNotNull(PricingService.getPrice(2L));
-		Assert.assertNotNull(PricingService.getPrice(5L));
-	}
+  @Autowired
+	PriceRepository priceRepository;
+
+  @Test
+  public void testFindPriceByVehicleId() {
+    Price originalPrice = new Price("VND", new BigDecimal(14.0), 101L);
+    priceRepository.save(originalPrice);
+    Price price = priceRepository.findById(originalPrice.getId()).get();
+    Assertions.assertThat(price.getPrice()).isEqualTo(new BigDecimal(14.0));
+    Assertions.assertThat(price.getCurrency()).isEqualTo("VND");
+  }
+
+  @Test(expected = NoSuchElementException.class)
+  public void testDelete() {
+    Price originalPrice = new Price("VND", new BigDecimal(12.0), 105L);
+    priceRepository.save(originalPrice);
+    Price price = priceRepository.findById(originalPrice.getId()).get();
+    priceRepository.delete(price);
+    priceRepository.findById(originalPrice.getId()).get();
+  }
 
 }

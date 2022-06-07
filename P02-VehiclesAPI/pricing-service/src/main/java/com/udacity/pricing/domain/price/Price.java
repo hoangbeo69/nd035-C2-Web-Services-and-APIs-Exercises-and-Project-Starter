@@ -29,6 +29,12 @@ public class Price {
         this.vehicleId = vehicleId;
     }
 
+    public Price(String currency, BigDecimal price, Long vehicleId) {
+        this.currency = currency;
+        this.price = price;
+        this.vehicleId = vehicleId;
+    }
+
     public Long getId() {
         return id;
     }
