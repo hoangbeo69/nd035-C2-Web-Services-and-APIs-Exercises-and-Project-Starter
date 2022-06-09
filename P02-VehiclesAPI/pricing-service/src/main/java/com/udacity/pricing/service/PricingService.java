@@ -6,10 +6,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Implements the pricing service to get prices for each vehicle.
  */
+@Component
 public class PricingService {
 
   @Autowired PriceRepository priceRepository;
