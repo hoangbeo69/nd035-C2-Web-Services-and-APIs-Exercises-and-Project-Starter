@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class PricingServiceApplicationTests {
 
   @Autowired
-	PriceRepository priceRepository;
+  PriceRepository priceRepository;
 
   @Test
   public void testFindPriceByVehicleId() {

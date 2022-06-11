@@ -17,6 +17,16 @@ public class PricingService {
   @Autowired PriceRepository priceRepository;
 
   /**
+   * Gets a random price to fill in for a given vehicle ID.
+   *
+   * @return random price for a vehicle
+   */
+  private static BigDecimal randomPrice() {
+    return new BigDecimal(ThreadLocalRandom.current().nextDouble(1, 5))
+        .multiply(new BigDecimal(5000d)).setScale(2, RoundingMode.HALF_UP);
+  }
+
+  /**
    * If a valid vehicle ID, gets the price of the vehicle from the stored array.
    *
    * @param vehicleId ID number of the vehicle the price is requested for.
@@ -28,16 +38,6 @@ public class PricingService {
         .orElseThrow(() -> new PriceException("Vehicle ID not found: " + vehicleId));
 
     return price;
-  }
-
-  /**
-   * Gets a random price to fill in for a given vehicle ID.
-   *
-   * @return random price for a vehicle
-   */
-  private static BigDecimal randomPrice() {
-    return new BigDecimal(ThreadLocalRandom.current().nextDouble(1, 5))
-        .multiply(new BigDecimal(5000d)).setScale(2, RoundingMode.HALF_UP);
   }
 
 }

@@ -4,7 +4,6 @@ The Pricing Service is a REST WebService that simulates a backend that
 would store and retrieve the price of a vehicle given a vehicle id as
 input. In this project, you will convert it to a microservice.
 
-
 ## Features
 
 - REST WebService integrated with Spring Boot
@@ -14,7 +13,8 @@ input. In this project, you will convert it to a microservice.
 #### TODOs
 
 - Convert the Pricing Service to be a microservice.
-- Add an additional test to check whether the application appropriately generates a price for a given vehicle ID
+- Add an additional test to check whether the application appropriately generates a price for a
+  given vehicle ID
 
 #### Run the code
 
